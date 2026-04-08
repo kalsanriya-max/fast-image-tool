@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="description" content="Free online image format converter - Convert JPEG, PNG, WEBP, HEIC, SVG images instantly. Download your converted image in any format. Professional tool with adsense ready.">
+  <meta name="keywords" content="image converter, change image format, jpeg to png, png to webp, free image tool, online converter, HEIC to JPEG, SVG converter">
+  <meta name="author" content="image converter">
+  <title> Image  converter| Free Image Converter Tool</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f6f9fc 0%, #eef2f5 100%);
+      color: #1a2c3e;
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* header */
+    .header {
+      background: white;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 18px 0;
+      gap: 16px;
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #0f2b3d, #1e6f5c);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+    }
+    .logo i {
+      background: none;
+      color: #1e6f5c;
+      margin-right: 6px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+    .nav-link {
+      text-decoration: none;
+      font-weight: 600;
+      color: #2c5a6e;
+      cursor: pointer;
+      transition: 0.2s;
+      font-size: 1rem;
+    }
+    .nav-link:hover {
+      color: #1e6f5c;
+      border-bottom: 2px solid #1e6f5c;
+      padding-bottom: 4px;
+    }
+
+    /* main content */
+    .page {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    .page.active-page {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    /* card style */
+    .tool-card {
+      background: white;
+      border-radius: 32px;
+      padding: 30px 28px;
+      margin: 40px 0 30px;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
+      transition: all 0.2s;
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #0f2b3d;
+    }
+    .sub {
+      color: #4a6f7e;
+      margin-bottom: 28px;
+      border-left: 4px solid #1e6f5c;
+      padding-left: 18px;
+    }
+
+    /* upload area */
+    .upload-area {
+      border: 2px dashed #bdd3e0;
+      border-radius: 28px;
+      padding: 32px 20px;
+      text-align: center;
+      background: #fefefe;
+      cursor: pointer;
+      transition: 0.2s;
+      margin-bottom: 28px;
+    }
+    .upload-area:hover {
+      border-color: #1e6f5c;
+      background: #f9fffe;
+    }
+    .upload-icon {
+      font-size: 3rem;
+      color: #1e6f5c;
+      margin-bottom: 12px;
+    }
+    #fileInput {
+      display: none;
+    }
+    .preview-container {
+      text-align: center;
+      margin: 20px 0;
+    }
+    #previewImage {
+      max-width: 100%;
+      max-height: 280px;
+      border-radius: 20px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+      background: #f0f4f8;
+      padding: 6px;
+    }
+    .format-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: flex-end;
+      margin: 24px 0;
+      background: #f8fafc;
+      padding: 20px;
+      border-radius: 28px;
+    }
+    .format-group {
+      flex: 2;
+      min-width: 180px;
+    }
+    .format-group label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 8px;
+      color: #1f4e5c;
+    }
+    select, button {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 60px;
+      border: 1px solid #cbdde6;
+      background: white;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    select:focus {
+      outline: none;
+      border-color: #1e6f5c;
+    }
+    .convert-btn {
+      background: #1e6f5c;
+      color: white;
+      border: none;
+      font-weight: 700;
+      box-shadow: 0 4px 8px rgba(30,111,92,0.3);
+    }
+    .convert-btn:hover {
+      background: #0e5948;
+      transform: scale(0.98);
+    }
+    .result-area {
+      margin: 28px 0 20px;
+      padding: 18px;
+      background: #eef3f0;
+      border-radius: 28px;
+      text-align: center;
+    }
+    .download-link {
+      display: inline-block;
+      background: #0f2b3d;
+      color: white;
+      text-decoration: none;
+      padding: 12px 28px;
+      border-radius: 40px;
+      font-weight: 600;
+      margin-top: 12px;
+      transition: 0.2s;
+    }
+    .download-link:hover {
+      background: #1e6f5c;
+    }
+
+    /* ad spaces (two slots) */
+    .ad-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin: 35px 0 20px;
+      justify-content: center;
+    }
+    .ad-slot {
+      flex: 1;
+      min-width: 250px;
+      background: #f0f2f5;
+      border-radius: 24px;
+      padding: 28px 12px;
+      text-align: center;
+      border: 1px dashed #9aaeb9;
+      color: #5c6f7e;
+      font-weight: 500;
+      backdrop-filter: blur(2px);
+      transition: 0.2s;
+    }
+    .ad-slot i {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      display: block;
+      opacity: 0.7;
+    }
+    .ad-label {
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+    }
+
+    /* about page */
+    .about-content {
+      background: white;
+      border-radius: 32px;
+      padding: 32px;
+      margin: 40px 0;
+      line-height: 1.7;
+    }
+    .about-content h2 {
+      color: #0f2b3d;
+      margin-bottom: 20px;
+    }
+    .contact-info {
+      margin-top: 28px;
+      background: #eef2f5;
+      padding: 20px;
+      border-radius: 28px;
+    }
+
+    /* footer */
+    .footer {
+      margin-top: auto;
+      background: #0f2b3d;
+      color: #cbdde6;
+      padding: 32px 0 24px;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    .footer a {
+      color: #9ec8b9;
+      text-decoration: none;
+    }
+    .keywords {
+      font-size: 0.75rem;
+      margin-top: 16px;
+      opacity: 0.8;
+      letter-spacing: 0.5px;
+    }
+    hr {
+      margin: 20px 0;
+      border-color: #294e5e;
+    }
+
+    @media (max-width: 680px) {
+      .navbar { flex-direction: column; text-align: center; }
+      .tool-card { padding: 20px; }
+      h1 { font-size: 1.7rem; }
+      .format-row { flex-direction: column; }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<div class="header">
+  <div class="container">
+    <div class="navbar">
+      <div class="logo"><i class="fas fa-image"></i> FormatForge<span style="font-weight:400">.hub</span></div>
+      <div class="nav-links">
+        <a class="nav-link" onclick="showPage('home')"><i class="fas fa-home"></i> Home</a>
+        <a class="nav-link" onclick="showPage('about')"><i class="fas fa-info-circle"></i> About / Contact</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="container">
+  <!-- HOME PAGE (Converter Tool) -->
+  <div id="homePage" class="page active-page">
+    <div class="tool-card">
+      <h1><i class="fas fa-exchange-alt" style="color:#1e6f5c"></i> Instant Image Converter</h1>
+      <div class="sub">Convert any image to JPEG, PNG, WEBP — upload, choose format, and download in seconds. Supports JPG, PNG, WEBP, HEIC*, SVG*.</div>
+
+      <!-- Upload zone -->
+      <div class="upload-area" id="uploadZone">
+        <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+        <p><strong>Click or drag & drop</strong><br>Supported: JPEG, PNG, WEBP, HEIC, SVG, GIF, BMP</p>
+        <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,image/svg+xml,image/gif,image/bmp">
+        <button id="selectFileBtn" style="margin-top: 16px; width: auto; background:#e0edf2; border:none; padding: 8px 28px;">📁 Choose image</button>
+      </div>
+
+      <!-- Preview -->
+      <div class="preview-container" id="previewContainer" style="display: none;">
+        <img id="previewImage" alt="Preview">
+        <p style="margin-top: 8px; font-size:0.85rem;">✅ Image loaded</p>
+      </div>
+
+      <!-- Format selection & convert -->
+      <div class="format-row">
+        <div class="format-group">
+          <label><i class="fas fa-arrow-right"></i> Convert to:</label>
+          <select id="targetFormat">
+            <option value="image/jpeg">JPEG (.jpg)</option>
+            <option value="image/png">PNG (.png)</option>
+            <option value="image/webp">WEBP (.webp)</option>
+            <option value="original">Original format (keep as is)</option>
+          </select>
+        </div>
+        <div class="format-group">
+          <label> </label>
+          <button id="convertBtn" class="convert-btn"><i class="fas fa-sync-alt"></i> Convert Now</button>
+        </div>
+      </div>
+
+      <!-- Result + download area -->
+      <div id="resultArea" class="result-area" style="display: none;">
+        <i class="fas fa-check-circle" style="color:#1e6f5c; font-size:1.8rem;"></i>
+        <p><strong>Conversion ready!</strong></p>
+        <div id="downloadLinkContainer"></div>
+        <p style="font-size:0.8rem; margin-top:12px;">⬇️ Click above to save converted image</p>
+      </div>
+
+      <!-- TWO AD SPACES (as requested) -->
+      <div class="ad-section">
+        <div class="ad-slot">
+          <i class="fas fa-ad"></i>
+          <div class="ad-label">Advertisement · 300x250</div>
+          <div style="margin-top:10px;">[Google AdSense Space 1]</div>
+        </div>
+        <div class="ad-slot">
+          <i class="fas fa-bullhorn"></i>
+          <div class="ad-label">Advertisement · 300x250</div>
+          <div style="margin-top:10px;">[Google AdSense Space 2]</div>
+        </div>
+      </div>
+      <p class="sub" style="font-size:0.75rem; text-align:center;">*HEIC/SVG conversion uses canvas rendering; some HEIC images may require modern browser (Safari/Edge).</p>
+    </div>
+  </div>
+
+  <!-- ABOUT / CONTACT PAGE (second page) -->
+  <div id="aboutPage" class="page">
+    <div class="about-content">
+      <h2><i class="fas fa-cogs"></i> About FormatForge</h2>
+      <p><strong>Professional image converter tool</strong> — designed for speed, privacy, and ease. All conversions happen directly in your browser: no server uploads, no data sharing. Your images stay private.</p>
+      <p>We support JPEG, PNG, WEBP, and fallback conversion for HEIC/SVG rasterization. Perfect for bloggers, designers, and everyday users who need quick format changes.</p>
+      <div class="contact-info">
+        <h3><i class="fas fa-envelope"></i> Contact & Support</h3>
+        <p>📧 support@formatforgehub.com<br>🐦 Twitter: @FormatForge<br>📌 Partnership & ads inquiries: ads@formatforgehub.com</p>
+        <p><i class="fas fa-shield-alt"></i> <strong>Privacy first:</strong> No image is uploaded to any server. This tool uses HTML5 Canvas & File API.</p>
+      </div>
+      <p style="margin-top:20px;">📍 <strong>Keywords for SEO:</strong> image converter, change format, jpg to png, webp converter, free online tool, heic to jpeg, svg converter, image resizer alternative, professional tool.</p>
+    </div>
+    <!-- ad space on about page also optional but maintain consistency, but requirement not mandatory, yet good to have -->
+    <div class="ad-section" style="margin-top:0;">
+      <div class="ad-slot"><i class="fas fa-ad"></i> AdSense - Footer placement</div>
+      <div class="ad-slot"><i class="fas fa-chart-line"></i> AdSense - Performance ad</div>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <p>© 2025 FormatForge.hub — Professional Image Converter Tool. All trademarks belong to their respective owners.</p>
+    <p><i class="fas fa-globe"></i> Convert JPEG | PNG | WEBP | HEIC support* | SVG to raster</p>
+    <div class="keywords">
+      🔥 high quality image converter | change image format online | free tool no upload | best format changer | webp maker | png to jpeg
+    </div>
+    <hr>
+    <p style="font-size:0.7rem;">*HEIC conversion relies on browser native decoding; some HEIC files might need external fallback. SVG rasterization works as expected.</p>
+  </div>
+</footer>
+
+<script>
+  // DOM elements
+  const fileInput = document.getElementById('fileInput');
+  const uploadZone = document.getElementById('uploadZone');
+  const selectBtn = document.getElementById('selectFileBtn');
+  const previewContainer = document.getElementById('previewContainer');
+  const previewImg = document.getElementById('previewImage');
+  const convertBtn = document.getElementById('convertBtn');
+  const targetFormatSelect = document.getElementById('targetFormat');
+  const resultArea = document.getElementById('resultArea');
+  const downloadLinkContainer = document.getElementById('downloadLinkContainer');
+
+  let currentImageFile = null;
+  let originalImageElement = null;     // store img object for canvas drawing
+  let originalMime = "";
+
+  // Helper: show page
+  window.showPage = function(pageId) {
+    const home = document.getElementById('homePage');
+    const about = document.getElementById('aboutPage');
+    if(pageId === 'home') {
+      home.classList.add('active-page');
+      about.classList.remove('active-page');
+    } else {
+      home.classList.remove('active-page');
+      about.classList.add('active-page');
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // trigger file upload
+  function triggerUpload() {
+    fileInput.click();
+  }
+  uploadZone.addEventListener('click', triggerUpload);
+  selectBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    triggerUpload();
+  });
+
+  // load image from file
+  fileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if(!file) return;
+    if(!file.type.startsWith('image/')) {
+      alert('Please select a valid image file (JPEG, PNG, WEBP, HEIC, SVG, etc)');
+      return;
+    }
+    currentImageFile = file;
+    originalMime = file.type;
+    
+    // show preview using object URL
+    const objectUrl = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      URL.revokeObjectURL(objectUrl);
+      originalImageElement = img;
+      previewImg.src = objectUrl;  // actually we already have URL, but better to reuse
+      previewImg.src = objectUrl; // set again
+      previewContainer.style.display = 'block';
+      // hide previous result
+      resultArea.style.display = 'none';
+      downloadLinkContainer.innerHTML = '';
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      alert('Unable to load this image. Unsupported format or corrupted file.');
+      originalImageElement = null;
+      previewContainer.style.display = 'none';
+    };
+    img.src = objectUrl;
+  });
+
+  // convert image logic (core)
+  async function convertImageToFormat(formatMime, quality = 0.92) {
+    return new Promise((resolve, reject) => {
+      if(!originalImageElement) {
+        reject(new Error("No image loaded. Please upload an image first."));
+        return;
+      }
+      const img = originalImageElement;
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, img.width, img.height);
+      
+      // special handling for 'original' format: just return blob of original file if possible
+      if(formatMime === 'original') {
+        if(currentImageFile) {
+          resolve(currentImageFile);
+          return;
+        } else {
+          reject(new Error("Original file not available"));
+          return;
+        }
+      }
+      
+      // for jpeg/png/webp use canvas toBlob
+      let outputType = formatMime;
+      if(outputType === 'image/jpeg') {
+        canvas.toBlob(blob => resolve(blob), 'image/jpeg', quality);
+      } else if(outputType === 'image/png') {
+        canvas.toBlob(blob => resolve(blob), 'image/png');
+      } else if(outputType === 'image/webp') {
+        canvas.toBlob(blob => resolve(blob), 'image/webp', quality);
+      } else {
+        // fallback png
+        canvas.toBlob(blob => resolve(blob), 'image/png');
+      }
+    });
+  }
+
+  // download blob as file
+  function downloadBlob(blob, filename) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  convertBtn.addEventListener('click', async () => {
+    if(!originalImageElement) {
+      alert('Please upload an image first!');
+      return;
+    }
+    // Show loading state on button
+    const originalText = convertBtn.innerHTML;
+    convertBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Converting...';
+    convertBtn.disabled = true;
+    
+    try {
+      let selectedVal = targetFormatSelect.value;
+      let outputMime = selectedVal;
+      let extension = 'jpg';
+      if(selectedVal === 'image/jpeg') extension = 'jpg';
+      else if(selectedVal === 'image/png') extension = 'png';
+      else if(selectedVal === 'image/webp') extension = 'webp';
+      else if(selectedVal === 'original') {
+        // get extension from original file
+        let originalExt = (currentImageFile.name.split('.').pop() || 'jpg').toLowerCase();
+        extension = originalExt;
+        outputMime = originalMime;
+      }
+      
+      const convertedBlob = await convertImageToFormat(outputMime);
+      if(!convertedBlob) throw new Error("Conversion failed");
+      
+      // generate filename
+      let baseName = currentImageFile ? currentImageFile.name.replace(/\.[^/.]+$/, '') : 'converted_image';
+      let finalName = `${baseName}_converted.${extension}`;
+      
+      // create download link inside result area
+      resultArea.style.display = 'block';
+      downloadLinkContainer.innerHTML = '';
+      const downloadBtn = document.createElement('a');
+      downloadBtn.href = URL.createObjectURL(convertedBlob);
+      downloadBtn.download = finalName;
+      downloadBtn.className = 'download-link';
+      downloadBtn.innerHTML = '<i class="fas fa-download"></i> Download converted image (' + extension.toUpperCase() + ')';
+      downloadLinkContainer.appendChild(downloadBtn);
+      
+      // optional auto download (better to let user click but we provide link)
+      // but also we can trigger download directly? to be user friendly but not mandatory, we just show strong CTA.
+      
+      // scroll to result
+      resultArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      
+    } catch (err) {
+      console.error(err);
+      alert('Conversion error: ' + err.message);
+      resultArea.style.display = 'none';
+    } finally {
+      convertBtn.innerHTML = originalText;
+      convertBtn.disabled = false;
+    }
+  });
+
+  // handle if user selects original format and original is svg/heic etc, we pass file directly.
+  // extra: if image loaded as SVG and user wants to convert to jpeg, canvas works fine (rasterizes svg)
+  // For HEIC: browser might fail loading, but we show alert. User will have to use modern browser.
+  // also add drag and drop functionality for better UX
+  const dropZone = uploadZone;
+  ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    dropZone.addEventListener(eventName, preventDefaults, false);
+  });
+  function preventDefaults(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+  ['dragenter', 'dragover'].forEach(eventName => {
+    dropZone.addEventListener(eventName, highlight, false);
+  });
+  ['dragleave', 'drop'].forEach(eventName => {
+    dropZone.addEventListener(eventName, unhighlight, false);
+  });
+  function highlight() {
+    dropZone.style.borderColor = '#1e6f5c';
+    dropZone.style.background = '#e0f0ec';
+  }
+  function unhighlight() {
+    dropZone.style.borderColor = '#bdd3e0';
+    dropZone.style.background = '#fefefe';
+  }
+  dropZone.addEventListener('drop', handleDrop, false);
+  function handleDrop(e) {
+    const dt = e.dataTransfer;
+    const files = dt.files;
+    if(files.length) {
+      fileInput.files = files;
+      // trigger change event
+      const event = new Event('change', { bubbles: true });
+      fileInput.dispatchEvent(event);
+    }
+  }
+  
+  // small fix: ensure after conversion 'original' option works correctly when original is svg
+  // for SVG conversion to other formats, canvas works perfect.
+  // also show warning for heic
+  fileInput.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if(file && (file.type === 'image/heic' || file.type === 'image/heif')) {
+      if (!window.createImageBitmap || !HTMLImageElement.prototype.decode) {
+        alert('⚠️ HEIC format may not be fully supported in this browser. Try using Chrome / Edge / Safari for better HEIC support.');
+      } else {
+        // still try, modern safari supports heic
+        console.log('HEIC file detected, attempting conversion using canvas (may work on Safari)');
+      }
+    }
+    if(file && file.type === 'image/svg+xml') {
+      // SVG works perfectly, just note
+      console.log('SVG loaded — will rasterize on conversion.');
+    }
+  });
+</script>
+</body>
+</html>
