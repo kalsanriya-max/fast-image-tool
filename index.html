@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <meta name="description" content="Free online image format converter - Convert JPEG, PNG, WEBP, HEIC, SVG images instantly. Download your converted image in any format. Professional tool with adsense ready.">
   <meta name="keywords" content="image converter, change image format, jpeg to png, png to webp, free image tool, online converter, HEIC to JPEG, SVG converter">
-  <meta name="author" content="image converter">
-  <title> Image  converter| Free Image Converter Tool</title>
+  <meta name="author" content="Imageconvertorhub">
+  <title>Image converter hub| Free Image Converter Tool</title>
   <style>
     * {
       margin: 0;
@@ -15,8 +15,7 @@
       box-sizing: border-box;
       font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
     }
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9592852125673256"
-     crossorigin="anonymous"></script>
+
     body {
       background: linear-gradient(145deg, #f6f9fc 0%, #eef2f5 100%);
       color: #1a2c3e;
@@ -367,14 +366,12 @@
         <div class="ad-slot">
           <i class="fas fa-ad"></i>
           <div class="ad-label">Advertisement · 300x250</div>
-          <div style="margin-top:10px;"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9592852125673256"
-     crossorigin="anonymous"></script></div>
+          <div style="margin-top:10px;">[Google AdSense Space 1]</div>
         </div>
         <div class="ad-slot">
           <i class="fas fa-bullhorn"></i>
           <div class="ad-label">Advertisement · 300x250</div>
-          <div style="margin-top:10px;"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9592852125673256"
-     crossorigin="anonymous"></script></div>
+          <div style="margin-top:10px;">[Google AdSense Space 2]</div>
         </div>
       </div>
       <p class="sub" style="font-size:0.75rem; text-align:center;">*HEIC/SVG conversion uses canvas rendering; some HEIC images may require modern browser (Safari/Edge).</p>
@@ -609,49 +606,4 @@
     e.stopPropagation();
   }
   ['dragenter', 'dragover'].forEach(eventName => {
-    dropZone.addEventListener(eventName, highlight, false);
-  });
-  ['dragleave', 'drop'].forEach(eventName => {
-    dropZone.addEventListener(eventName, unhighlight, false);
-  });
-  function highlight() {
-    dropZone.style.borderColor = '#1e6f5c';
-    dropZone.style.background = '#e0f0ec';
-  }
-  function unhighlight() {
-    dropZone.style.borderColor = '#bdd3e0';
-    dropZone.style.background = '#fefefe';
-  }
-  dropZone.addEventListener('drop', handleDrop, false);
-  function handleDrop(e) {
-    const dt = e.dataTransfer;
-    const files = dt.files;
-    if(files.length) {
-      fileInput.files = files;
-      // trigger change event
-      const event = new Event('change', { bubbles: true });
-      fileInput.dispatchEvent(event);
-    }
-  }
-  
-  // small fix: ensure after conversion 'original' option works correctly when original is svg
-  // for SVG conversion to other formats, canvas works perfect.
-  // also show warning for heic
-  fileInput.addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    if(file && (file.type === 'image/heic' || file.type === 'image/heif')) {
-      if (!window.createImageBitmap || !HTMLImageElement.prototype.decode) {
-        alert('⚠️ HEIC format may not be fully supported in this browser. Try using Chrome / Edge / Safari for better HEIC support.');
-      } else {
-        // still try, modern safari supports heic
-        console.log('HEIC file detected, attempting conversion using canvas (may work on Safari)');
-      }
-    }
-    if(file && file.type === 'image/svg+xml') {
-      // SVG works perfectly, just note
-      console.log('SVG loaded — will rasterize on conversion.');
-    }
-  });
-</script>
-</body>
-</html>
+    dropZone.addE
